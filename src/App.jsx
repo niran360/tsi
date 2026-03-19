@@ -27,7 +27,7 @@ const tracks = [
   },
   {
     title: 'Life Skills',
-    image: '/4.png',
+    image: '/4.jpg',
     imageAlt: 'Competitive match exposure opportunities',
     description:
       'Education and Guidance',
