@@ -3,16 +3,19 @@ export default function BecomePartnerPage({ formData, submitted, onFormChange, o
     <div className="site">
       <header className="topbar">
         <div className="brand">
-          <img
-            src="/logo.png"
-            alt="TSI Logo"
-            className="logo-image"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width="86"
-            height="86"
-          />
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img
+              src="/logo.png"
+              alt="TSI Logo"
+              className="logo-image"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              width="86"
+              height="86"
+            />
+          </picture>
           <span>TSI Football Development</span>
         </div>
         <nav className="nav">
