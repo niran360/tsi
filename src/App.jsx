@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import './App.css'
-import AboutPage from './AboutPage'
-import BecomePartnerPage from './BecomePartnerPage'
+
+const AboutPage = lazy(() => import('./AboutPage'))
+const BecomePartnerPage = lazy(() => import('./BecomePartnerPage'))
 
 const tracks = [
   {
     title: 'Street Talent Hunt',
     image: '/1.png',
+    imageWebp: '/1.webp',
     imageAlt: 'Players participating in street talent hunt',
     description:
       'Scouting and open Trials across Nigeria to discover raw football talent in underserved communities.',
@@ -14,6 +16,7 @@ const tracks = [
   {
     title: 'Training & Development',
     image: '/2.png',
+    imageWebp: '/2.webp',
     imageAlt: 'Structured football player development program',
     description:
       'Focused sessions in technical skill, tactical awareness, recovery habits, and match confidence.',
@@ -21,6 +24,7 @@ const tracks = [
   {
     title: 'Talent Showcase',
     image: '/3.png',
+    imageWebp: '/3.webp',
     imageAlt: 'Talent showcase for football players',
     description:
       'Tournaments and Matches against top local and regional teams to gain competitive experience and visibility with scouts.',
@@ -28,6 +32,7 @@ const tracks = [
   {
     title: 'Life Skills',
     image: '/4.png',
+    imageWebp: '/4.webp',
     imageAlt: 'Competitive match exposure opportunities',
     description:
       'Education and Guidance',
@@ -247,17 +252,23 @@ function App() {
   }
 
   if (isAboutPage) {
-    return <AboutPage aboutPillars={aboutPillars} founders={founders} />
+    return (
+      <Suspense fallback={<div className="site" style={{ minHeight: '100vh' }} />}>
+        <AboutPage aboutPillars={aboutPillars} founders={founders} />
+      </Suspense>
+    )
   }
 
   if (isPartnerPage) {
     return (
-      <BecomePartnerPage
-        formData={formData}
-        submitted={submitted}
-        onFormChange={handleFormChange}
-        onFormSubmit={handleFormSubmit}
-      />
+      <Suspense fallback={<div className="site" style={{ minHeight: '100vh' }} />}>
+        <BecomePartnerPage
+          formData={formData}
+          submitted={submitted}
+          onFormChange={handleFormChange}
+          onFormSubmit={handleFormSubmit}
+        />
+      </Suspense>
     )
   }
 
@@ -265,16 +276,19 @@ function App() {
     <div className="site">
       <header className="topbar">
         <div className="brand">
-          <img
-            src="/logo.png"
-            alt="TSI Logo"
-            className="logo-image"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width="86"
-            height="86"
-          />
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img
+              src="/logo.png"
+              alt="TSI Logo"
+              className="logo-image"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              width="86"
+              height="86"
+            />
+          </picture>
           <span>TSI Football Development</span>
         </div>
         <button
@@ -306,22 +320,25 @@ function App() {
                 muted
                 playsInline
                 preload="none"
-                poster="/img.png"
+                poster="/img.webp"
               >
                 <source src="/video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <img
-                className="hero-video"
-                src="/img.png"
-                alt="Football development preview"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                width="380"
-                height="475"
-              />
+              <picture>
+                <source srcSet="/img.webp" type="image/webp" />
+                <img
+                  className="hero-video"
+                  src="/img.png"
+                  alt="Football development preview"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                  width="380"
+                  height="475"
+                />
+              </picture>
             )}
           </div>
           <div className="hero-content">
@@ -348,15 +365,18 @@ function App() {
           <div className="tracks-carousel" ref={tracksCarouselRef}>
             {loopedTracks.map((track, index) => (
               <article className="card track-card" key={`${track.title}-${index}`}>
-                <img
-                  className="card-image"
-                  src={track.image}
-                  alt={track.imageAlt}
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="360"
-                />
+                <picture>
+                  <source srcSet={track.imageWebp} type="image/webp" />
+                  <img
+                    className="card-image"
+                    src={track.image}
+                    alt={track.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                    width="640"
+                    height="360"
+                  />
+                </picture>
                 <h3>{track.title}</h3>
                 <p>{track.description}</p>
               </article>
@@ -439,7 +459,10 @@ function App() {
             </div>
           </div>
           <div className="live-media" aria-hidden="true">
-            <img src="/5.png" alt="" loading="lazy" decoding="async" width="640" height="280" />
+            <picture>
+              <source srcSet="/5.webp" type="image/webp" />
+              <img src="/5.png" alt="" loading="lazy" decoding="async" width="640" height="280" />
+            </picture>
           </div>
         </section>
 

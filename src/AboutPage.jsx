@@ -3,16 +3,19 @@ export default function AboutPage({ aboutPillars, founders }) {
     <div className="site">
       <header className="topbar">
         <div className="brand">
-          <img
-            src="/logo.png"
-            alt="TSI Logo"
-            className="logo-image"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width="86"
-            height="86"
-          />
+          <picture>
+            <source srcSet="/logo.webp" type="image/webp" />
+            <img
+              src="/logo.png"
+              alt="TSI Logo"
+              className="logo-image"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              width="86"
+              height="86"
+            />
+          </picture>
           <span>TSI Football Development</span>
         </div>
         <nav className="nav">
@@ -36,15 +39,18 @@ export default function AboutPage({ aboutPillars, founders }) {
               </p>
             </div>
             <div className="about-page-hero-media" aria-hidden="true">
-              <img
-                src="/6.png"
-                alt=""
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                width="520"
-                height="650"
-              />
+              <picture>
+                <source srcSet="/6.webp" type="image/webp" />
+                <img
+                  src="/6.png"
+                  alt=""
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                  width="520"
+                  height="650"
+                />
+              </picture>
             </div>
           </div>
         </section>
@@ -76,14 +82,17 @@ export default function AboutPage({ aboutPillars, founders }) {
               </p>
             </div>
             <div className="about-page-story-media" aria-hidden="true">
-              <img
-                src="/2.png"
-                alt=""
-                loading="lazy"
-                decoding="async"
-                width="640"
-                height="420"
-              />
+              <picture>
+                <source srcSet="/2.webp" type="image/webp" />
+                <img
+                  src="/2.png"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="640"
+                  height="420"
+                />
+              </picture>
             </div>
           </div>
         </section>
