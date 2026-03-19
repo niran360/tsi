@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import AboutPage from './AboutPage'
+import BecomePartnerPage from './BecomePartnerPage'
 
 const tracks = [
   {
@@ -25,7 +27,7 @@ const tracks = [
   },
   {
     title: 'Life Skills',
-    image: '/4.PNG',
+    image: '/4.png',
     imageAlt: 'Competitive match exposure opportunities',
     description:
       'Education and Guidance',
@@ -245,261 +247,17 @@ function App() {
   }
 
   if (isAboutPage) {
-    return (
-      <div className="site">
-        <header className="topbar">
-          <div className="brand">
-            <img
-              src="/logo.png"
-              alt="TSI Logo"
-              className="logo-image"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              width="86"
-              height="86"
-            />
-            <span>TSI Football Development</span>
-          </div>
-          <nav className="nav">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/become-a-partner">Become a Partner</a>
-          </nav>
-        </header>
-
-        <main>
-          <section className="section about-page-hero">
-            <div className="about-page-hero-layout">
-              <div className="about-page-hero-content">
-                <h2>Who We Are</h2>
-                <p className="about-lead">
-                  Talent Search Initiative is dedicated to discovering, developing, and
-                  connecting exceptional individuals with meaningful opportunities. We
-                  believe talent exists everywhere, but access does not. Our work is
-                  built to close that gap through structured development pathways,
-                  practical support systems, and transparent opportunity channels.
-                </p>
-              </div>
-              <div className="about-page-hero-media" aria-hidden="true">
-                <img
-                  src="/6.png"
-                  alt=""
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                  width="520"
-                  height="650"
-                />
-              </div>
-            </div>
-          </section>
-
-          <section className="section about-page-story">
-            <div className="about-page-story-layout">
-              <div className="about-page-story-content">
-                <h2>Our Story</h2>
-                <p>
-                  Nigeria has one of the largest youth populations in the world, with
-                  millions of young people under 30 carrying immense creativity and
-                  potential. Yet many continue to face poverty, limited access to
-                  quality development systems, and unstable employment pathways.
-                  Too often, high-potential individuals are overlooked because they
-                  are disconnected from visibility networks and structured support.
-                </p>
-                <p>
-                  Talent Search Initiative was created to change this reality. We
-                  identify gifted boys and girls from street environments, community
-                  fields, and underprivileged neighborhoods, then bring them into a
-                  clear development pathway that combines athletic growth with life
-                  skills, mentorship, educational support, and access to trusted
-                  opportunities.
-                </p>
-                <p>
-                  Our objective is long-term impact: to help participants build
-                  confidence, capability, and direction while enabling clubs,
-                  academies, and employers to discover skilled and motivated talent.
-                </p>
-              </div>
-              <div className="about-page-story-media" aria-hidden="true">
-                <img
-                  src="/2.png"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="420"
-                />
-              </div>
-            </div>
-          </section>
-
-          <section className="section about-page-pillars">
-            <h2>What We Do</h2>
-            <div className="about-pillars-grid">
-              {aboutPillars.map((pillar) => (
-                <article className="about-pillar-card" key={pillar.title}>
-                  <h3>{pillar.title}</h3>
-                  <p>{pillar.description}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="section about-page-founders">
-            <h2>Meet Our Founders</h2>
-            <div className="about-founders-grid">
-              {founders.map((founder) => (
-                <article className="about-founder-card" key={founder.email}>
-                  <h3>{founder.name}</h3>
-                  <p>{founder.role}</p>
-                  <a href={`mailto:${founder.email}`}>{founder.email}</a>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="section about-page-cta">
-            <h2>Work With Us</h2>
-            <p>
-              If you are a partner organisation, academy, sponsor, or volunteer,
-              we welcome collaboration that expands access, strengthens
-              development, and creates measurable career outcomes.
-            </p>
-            <div className="live-actions">
-              <a className="cta" href="/become-a-partner">Contact Team</a>
-              <a className="ghost" href="/">Back To Home</a>
-            </div>
-          </section>
-        </main>
-
-        <footer className="footer">
-          <p>Built for football talent discovery and responsible player growth.</p>
-          <div className="footer-socials" aria-label="Social links">
-            <span>Follow us:</span>
-            <div className="footer-social-links">
-              <a href="https://instagram.com/talentsearchinitiative" target="_blank" rel="noreferrer">Instagram</a>
-              <a href="https://facebook.com/talentsearchinitiative" target="_blank" rel="noreferrer">Facebook</a>
-              <a href="https://x.com/talentsearchng" target="_blank" rel="noreferrer">X</a>
-              <a href="https://linkedin.com/company/talent-search-initiative" target="_blank" rel="noreferrer">LinkedIn</a>
-            </div>
-          </div>
-          <small>2026 Talent Search Initiative</small>
-        </footer>
-      </div>
-    )
+    return <AboutPage aboutPillars={aboutPillars} founders={founders} />
   }
 
   if (isPartnerPage) {
     return (
-      <div className="site">
-        <header className="topbar">
-          <div className="brand">
-            <img
-              src="/logo.png"
-              alt="TSI Logo"
-              className="logo-image"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              width="86"
-              height="86"
-            />
-            <span>TSI Football Development</span>
-          </div>
-          <nav className="nav">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/become-a-partner">Become a Partner</a>
-          </nav>
-        </header>
-
-        <main>
-          <section className="section section-contact">
-            <h2>Start Your Journey</h2>
-            <p className="submit-video-text">
-              Partner with Talent Search Initiative to support player growth,
-              sponsor development programs, or connect athletes to opportunity.
-            </p>
-            <div className="contact-container">
-              <form className="registration-form" onSubmit={handleFormSubmit}>
-                {submitted && <p className="form-success">✓ Registration received! We will be in touch.</p>}
-                <div className="form-group">
-                  <label>Full Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleFormChange}
-                    placeholder="Player's full name"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Age Group</label>
-                  <select name="ageGroup" value={formData.ageGroup} onChange={handleFormChange} required>
-                    <option value="">Select age group</option>
-                    <option value="U-12">U-12</option>
-                    <option value="U-14">U-14</option>
-                    <option value="U-16">U-16</option>
-                    <option value="U-18">U-18</option>
-                    <option value="U-20">U-20</option>
-                    <option value="Senior">Senior</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Position</label>
-                  <select name="position" value={formData.position} onChange={handleFormChange} required>
-                    <option value="">Select position</option>
-                    <option value="Goalkeeper">Goalkeeper</option>
-                    <option value="Defender">Defender</option>
-                    <option value="Midfielder">Midfielder</option>
-                    <option value="Attacker">Attacker</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>Location</label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleFormChange}
-                    placeholder="City or area"
-                    required
-                  />
-                </div>
-                <button type="submit" className="cta">Register For Trials</button>
-              </form>
-              <div className="contact-details">
-                <h3>Contact Details</h3>
-                <ul className="contact-list">
-                  <li>Email: info@talentsearchinitative.org</li>
-                  <li>Phone: +234 000 000 0000</li>
-                  <li className="contact-address">
-                    <strong>Address:</strong><br />
-                    39 Adebayo Mokuolu Street, Anthony Village,
-                    Lagos, Nigeria.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <footer className="footer">
-          <p>Built for football talent discovery and responsible player growth.</p>
-          <div className="footer-socials" aria-label="Social links">
-            <span>Follow us:</span>
-            <div className="footer-social-links">
-              <a href="https://instagram.com/talentsearchinitiative" target="_blank" rel="noreferrer">Instagram</a>
-              <a href="https://facebook.com/talentsearchinitiative" target="_blank" rel="noreferrer">Facebook</a>
-              <a href="https://x.com/talentsearchng" target="_blank" rel="noreferrer">X</a>
-              <a href="https://linkedin.com/company/talent-search-initiative" target="_blank" rel="noreferrer">LinkedIn</a>
-            </div>
-          </div>
-          <small>2026 Talent Search Initiative</small>
-        </footer>
-      </div>
+      <BecomePartnerPage
+        formData={formData}
+        submitted={submitted}
+        onFormChange={handleFormChange}
+        onFormSubmit={handleFormSubmit}
+      />
     )
   }
 
