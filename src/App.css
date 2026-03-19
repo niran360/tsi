@@ -124,7 +124,7 @@
 .kicker {
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   color: var(--ink-600);
   text-align: center;
 }
