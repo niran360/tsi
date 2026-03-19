@@ -1,0 +1,8 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Match exposure">
+  <rect width="800" height="500" fill="#0A4D84"/>
+  <rect x="60" y="80" width="680" height="340" rx="20" fill="#0F6C56"/>
+  <line x1="400" y1="80" x2="400" y2="420" stroke="#ffffff" stroke-width="8" opacity="0.9"/>
+  <circle cx="400" cy="250" r="66" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.9"/>
+  <path d="M140 170H210M590 330H660" stroke="#FC9005" stroke-width="12" stroke-linecap="round"/>
+  <text x="90" y="140" fill="#FC9005" font-family="Arial, sans-serif" font-size="34" font-weight="700">MATCH EXPOSURE</text>
+</svg>

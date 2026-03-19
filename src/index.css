@@ -1,0 +1,37 @@
+:root {
+  --ink-900: #05487F;
+  --ink-800: #0d5fa1;
+  --ink-700: #3f585f;
+  --ink-600: #5c747b;
+  --bg-main: #eef5f4;
+  --font-body: 'Trebuchet MS', 'Lucida Sans Unicode', 'Segoe UI', sans-serif;
+  --font-display: 'Agency FB', 'Franklin Gothic Demi Cond', 'Arial Narrow', sans-serif;
+  --primary: #FC9005;
+  --primary-dark: #05487F;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink-900);
+  background:
+    radial-gradient(circle at 7% 10%, #fff5dd 0, transparent 25%),
+    radial-gradient(circle at 91% 90%, #dcf2e8 0, transparent 28%),
+    var(--bg-main);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+p {
+  margin: 0;
+}

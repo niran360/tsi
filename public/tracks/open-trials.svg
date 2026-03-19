@@ -1,0 +1,9 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Open trials">
+  <rect width="800" height="500" fill="#05487F"/>
+  <circle cx="680" cy="95" r="70" fill="#ffffff" opacity="0.08"/>
+  <rect x="60" y="90" width="680" height="320" rx="22" fill="#0C5A98"/>
+  <path d="M120 330C220 260 320 260 420 330" stroke="#FC9005" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <circle cx="430" cy="328" r="34" fill="#ffffff"/>
+  <circle cx="430" cy="328" r="14" fill="#FC9005"/>
+  <text x="90" y="155" fill="#ffffff" font-family="Arial, sans-serif" font-size="42" font-weight="700">OPEN TRIALS</text>
+</svg>

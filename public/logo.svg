@@ -1,0 +1,17 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="#05487F" opacity="0.1"/>
+  
+  <!-- Main ball shape with football panels -->
+  <ellipse cx="60" cy="60" r="45" fill="#FC9005"/>
+  
+  <!-- Football panel lines -->
+  <line x1="60" y1="20" x2="60" y2="100" stroke="#05487F" stroke-width="3" stroke-linecap="round"/>
+  <line x1="35" y1="35" x2="85" y2="35" stroke="#05487F" stroke-width="2" opacity="0.6"/>
+  <line x1="32" y1="50" x2="88" y2="50" stroke="#05487F" stroke-width="2" opacity="0.6"/>
+  <line x1="32" y1="70" x2="88" y2="70" stroke="#05487F" stroke-width="2" opacity="0.6"/>
+  <line x1="35" y1="85" x2="85" y2="85" stroke="#05487F" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Arrow upward (growth) -->
+  <path d="M 60 105 L 60 75 M 50 85 L 60 75 L 70 85" stroke="#05487F" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Player development">
+  <rect width="800" height="500" fill="#F2F8FC"/>
+  <rect x="70" y="70" width="660" height="360" rx="26" fill="#05487F"/>
+  <rect x="120" y="140" width="560" height="26" rx="13" fill="#ffffff" opacity="0.8"/>
+  <rect x="120" y="200" width="460" height="26" rx="13" fill="#FC9005"/>
+  <rect x="120" y="260" width="380" height="26" rx="13" fill="#ffffff" opacity="0.8"/>
+  <rect x="120" y="320" width="500" height="26" rx="13" fill="#FC9005"/>
+  <text x="96" y="118" fill="#FC9005" font-family="Arial, sans-serif" font-size="34" font-weight="700">PLAYER DEVELOPMENT</text>
+</svg>
