@@ -1,4 +1,8 @@
+import { useState } from 'react'
+
 export default function BecomePartnerPage({ formData, submitted, onFormChange, onFormSubmit }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <div className="site">
       <header className="topbar">
@@ -15,10 +19,21 @@ export default function BecomePartnerPage({ formData, submitted, onFormChange, o
           />
           <span>TSI Football Development</span>
         </div>
-        <nav className="nav">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/become-a-partner">Become a Partner</a>
+        <button
+          className={`menu-toggle ${menuOpen ? 'active' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="primary-nav-partner"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav id="primary-nav-partner" className={`nav ${menuOpen ? 'nav-open' : ''}`}>
+          <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
+          <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="/become-a-partner" onClick={() => setMenuOpen(false)}>Become a Partner</a>
         </nav>
       </header>
 
