@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import AboutPage from './AboutPage'
 import BecomePartnerPage from './BecomePartnerPage'
+import LiveMatchesPage from './LiveMatchesPage'
 
 const tracks = [
   {
@@ -94,6 +95,7 @@ function App() {
   const path = typeof window !== 'undefined' ? window.location.pathname.replace(/\/+$/, '') || '/' : '/'
   const isAboutPage = path === '/about'
   const isPartnerPage = path === '/become-a-partner'
+  const isLiveMatchesPage = path === '/live-matches'
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [formData, setFormData] = useState({ name: '', ageGroup: '', position: '', location: '' })
@@ -261,6 +263,10 @@ function App() {
     )
   }
 
+  if (isLiveMatchesPage) {
+    return <LiveMatchesPage />
+  }
+
   return (
     <div className="site">
       <header className="topbar">
@@ -291,6 +297,7 @@ function App() {
         <nav id="primary-nav" className={`nav ${menuOpen ? 'nav-open' : ''}`}>
           <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
           <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="/live-matches" onClick={() => setMenuOpen(false)}>Live Matches</a>
           <a href="/become-a-partner" onClick={() => setMenuOpen(false)}>Become a Partner</a>
         </nav>
       </header>

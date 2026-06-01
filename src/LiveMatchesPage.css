@@ -1,0 +1,368 @@
+/* Live Matches Page Styles */
+
+.live-matches-hero {
+  background: linear-gradient(120deg, #f5fbff 0%, #ffffff 100%);
+  text-align: center;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.live-matches-hero h1 {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  text-transform: uppercase;
+  color: #05487F;
+}
+
+.hero-description {
+  max-width: 65ch;
+  color: var(--ink-700);
+  margin: 0 auto;
+}
+
+/* Club Selector */
+.club-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.club-button {
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  border: 2px solid #d5e1dc;
+  background: #ffffff;
+  color: #05487F;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.club-button:hover {
+  border-color: #FC9005;
+  background: rgba(252, 144, 5, 0.06);
+}
+
+.club-button.active {
+  border-color: #FC9005;
+  background: #FC9005;
+  color: #ffffff;
+}
+
+/* Live Match Featured Section */
+.live-match-featured {
+  background: linear-gradient(135deg, #fff5e6 0%, #fffaf0 100%);
+  border: 2px solid #FC9005;
+  position: relative;
+  padding: clamp(1.2rem, 3vw, 2rem);
+}
+
+.live-badge {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  background: #FC9005;
+  color: #ffffff;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.8rem;
+}
+
+.featured-match {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(0.8rem, 3vw, 1.5rem);
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.match-team {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: center;
+}
+
+.match-team.away {
+  text-align: right;
+}
+
+.match-team.away .team-score {
+  order: -1;
+}
+
+.team-name {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 700;
+  color: #05487F;
+  text-transform: uppercase;
+}
+
+.team-score {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #FC9005;
+  line-height: 1;
+}
+
+.match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: center;
+}
+
+.match-minute {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #05487F;
+}
+
+.match-category {
+  font-size: 0.8rem;
+  color: var(--ink-600);
+  text-transform: uppercase;
+}
+
+.featured-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.featured-actions .cta,
+.featured-actions .ghost {
+  min-width: 160px;
+}
+
+/* Matches List */
+.upcoming-matches-section,
+.completed-matches-section {
+  background: #ffffff;
+}
+
+.upcoming-matches-section {
+  background: linear-gradient(120deg, #f9fcfb 0%, #ffffff 100%);
+}
+
+.completed-matches-section {
+  background: linear-gradient(120deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.matches-list {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.match-card {
+  border: 1px solid #d8e4de;
+  border-radius: 12px;
+  padding: 0.95rem;
+  background: #fcfefd;
+  transition: all 200ms ease;
+}
+
+.match-card:hover {
+  border-color: #FC9005;
+  box-shadow: 0 4px 12px rgba(252, 144, 5, 0.12);
+}
+
+.match-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.match-teams {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.8rem;
+  align-items: center;
+  flex: 1;
+  min-width: 280px;
+}
+
+.match-teams .team {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-align: center;
+}
+
+.match-teams .team:last-child {
+  text-align: right;
+}
+
+.match-teams .team-name {
+  font-size: 0.95rem;
+  color: #05487F;
+  font-weight: 600;
+}
+
+.match-teams .team-score {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #FC9005;
+}
+
+.match-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.vs-text {
+  font-weight: 700;
+  color: var(--ink-600);
+  font-size: 0.85rem;
+}
+
+.match-time {
+  font-size: 0.8rem;
+  color: var(--ink-600);
+  font-weight: 500;
+}
+
+.match-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.category {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: rgba(5, 72, 127, 0.08);
+  color: #05487F;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.cta-small {
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  border: none;
+  background: #FC9005;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.cta-small:hover {
+  background: #E67F00;
+  transform: translateY(-1px);
+}
+
+/* No Matches State */
+.no-matches {
+  text-align: center;
+  padding: 2rem;
+  color: var(--ink-600);
+}
+
+.no-matches p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .featured-match {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .match-team.away {
+    text-align: center;
+  }
+
+  .match-teams {
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .featured-actions {
+    flex-direction: column;
+  }
+
+  .featured-actions .cta,
+  .featured-actions .ghost {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 640px) {
+  .live-matches-hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .club-selector {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .club-button {
+    padding: 0.55rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .team-name {
+    font-size: 0.85rem;
+  }
+
+  .team-score {
+    font-size: 1.8rem;
+  }
+
+  .match-card-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .match-teams {
+    min-width: unset;
+  }
+
+  .match-meta {
+    justify-content: space-between;
+  }
+
+  .cta-small {
+    width: 100%;
+  }
+
+  .featured-match {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animation */
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.match-card {
+  animation: slide-in 400ms ease-out;
+}
