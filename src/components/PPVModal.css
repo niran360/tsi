@@ -1,0 +1,175 @@
+/* PPVModal — Mobile First */
+
+.ppv-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 9100;
+  backdrop-filter: blur(6px);
+  animation: backdrop-in 200ms ease;
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ppv-modal {
+  background: #0a0e27;
+  border: 1px solid rgba(252, 144, 5, 0.25);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 20px 20px 0 0;
+  padding: 2rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  color: #fff;
+  animation: slide-up 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.ppv-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.ppv-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #FC9005;
+}
+
+.ppv-match-name {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+}
+
+.ppv-pricing {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.4rem 0;
+}
+
+.ppv-price-card {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  background: rgba(252, 144, 5, 0.12);
+  border: 1px solid rgba(252, 144, 5, 0.3);
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+}
+
+.ppv-price-card.ppv-secondary {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.ppv-currency {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FC9005;
+}
+
+.ppv-price-card.ppv-secondary .ppv-currency {
+  color: rgba(255,255,255,0.7);
+}
+
+.ppv-amount {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FC9005;
+  line-height: 1;
+}
+
+.ppv-price-card.ppv-secondary .ppv-amount {
+  color: rgba(255,255,255,0.85);
+}
+
+.ppv-or {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  font-weight: 500;
+}
+
+.ppv-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ppv-features li {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.75);
+}
+
+.ppv-activate-btn {
+  width: 100%;
+  background: #FC9005;
+  color: #000;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 200ms ease, transform 150ms ease;
+  margin-top: 0.4rem;
+}
+
+.ppv-activate-btn:hover {
+  background: #E67F00;
+}
+
+.ppv-activate-btn:active {
+  transform: scale(0.98);
+}
+
+.ppv-cancel-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  transition: color 160ms ease;
+}
+
+.ppv-cancel-btn:hover {
+  color: rgba(255,255,255,0.85);
+}
+
+.ppv-disclaimer {
+  margin: 0;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.3);
+}
+
+@media (min-width: 600px) {
+  .ppv-backdrop {
+    align-items: center;
+  }
+
+  .ppv-modal {
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+}

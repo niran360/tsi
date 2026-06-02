@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
+import Layout from './components/Layout'
 import './App.css'
 import AboutPage from './AboutPage'
 import BecomePartnerPage from './BecomePartnerPage'
 import MinimalWatchPage from './MinimalWatchPage'
 import EnhancedWatchMatchPage from './EnhancedWatchMatchPage'
 import MinimalLibrary from './MinimalLibrary'
+import QRJoinPage from './QRJoinPage'
+import QRCodePage from './QRCodePage'
 
 const tracks = [
   {
@@ -94,13 +98,6 @@ const founders = [
 const loopedTracks = [...tracks, ...tracks]
 
 function App() {
-  const path = typeof window !== 'undefined' ? window.location.pathname.replace(/\/+$/, '') || '/' : '/'
-  const isAboutPage = path === '/about'
-  const isPartnerPage = path === '/become-a-partner'
-  const isLiveMatchesPage = path === '/live-matches' || path === '/library'
-  const isWatchMatchPage = path === '/watch-match'
-  const isEnhancedWatchPage = path === '/watch-match-pro'
-
   const [menuOpen, setMenuOpen] = useState(false)
   const [formData, setFormData] = useState({ name: '', ageGroup: '', position: '', location: '' })
   const [submitted, setSubmitted] = useState(false)
@@ -252,310 +249,258 @@ function App() {
     }
   }
 
-  if (isAboutPage) {
-    return <AboutPage aboutPillars={aboutPillars} founders={founders} />
-  }
-
-  if (isPartnerPage) {
-    return (
-      <BecomePartnerPage
-        formData={formData}
-        submitted={submitted}
-        onFormChange={handleFormChange}
-        onFormSubmit={handleFormSubmit}
-      />
-    )
-  }
-
-  if (isLiveMatchesPage) {
-    return <MinimalLibrary />
-  }
-
-  if (isWatchMatchPage) {
-    return <MinimalWatchPage />
-  }
-
-  if (isEnhancedWatchPage) {
-    return <EnhancedWatchMatchPage />
-  }
-
   return (
-    <div className="site">
-      <header className="topbar">
-        <div className="brand">
-          <img
-            src="/logo.png"
-            alt="TSI Logo"
-            className="logo-image"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            width="86"
-            height="86"
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={
+          <main>
+            <section className="hero">
+              <div className="hero-media">
+                {showHeroVideo ? (
+                  <video
+                    className="hero-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="none"
+                    poster="/img.png"
+                  >
+                    <source src="/video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img
+                    className="hero-video"
+                    src="/img.png"
+                    alt="Football development preview"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    width="380"
+                    height="475"
+                  />
+                )}
+              </div>
+              <div className="hero-content">
+                <p className="kicker">Football Talent And Development</p>
+                <h1>Discovering Talents, </h1>
+                <h1>Changing Lives</h1>
+                <p className="hero-text">
+                  We help young footballers move from raw potential to match-ready
+                  performance through structured coaching and clear progression steps.
+                </p>
+                <div className="hero-actions">
+                  <Link className="cta" to="/become-a-partner">
+                    Register For Trials
+                  </Link>
+                  <a className="ghost" href="#tracks">
+                    View Development Tracks
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            <section id="tracks" className="section">
+              <h2></h2>
+              <div className="tracks-carousel" ref={tracksCarouselRef}>
+                {loopedTracks.map((track, index) => (
+                  <article className="card track-card" key={`${track.title}-${index}`}>
+                    <img
+                      className="card-image"
+                      src={track.image}
+                      alt={track.imageAlt}
+                      loading="lazy"
+                      decoding="async"
+                      width="640"
+                      height="360"
+                    />
+                    <h3>{track.title}</h3>
+                    <p>{track.description}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section id="about" className="section who-section">
+              <h2>Who We Are</h2>
+              <p className="who-text">
+                Talent Search Initiative is a football talent and development platform
+                focused on discovering promising players, building strong fundamentals,
+                and creating real opportunities for growth on and off the pitch.
+              </p>
+              <div className="who-grid">
+                <article className="who-card">
+                  <h3>Our Mission</h3>
+                  <p>
+                    To identify hidden football talent and provide structured coaching,
+                    mentorship, and exposure pathways.
+                  </p>
+                </article>
+                <article className="who-card">
+                  <h3>Our Vision</h3>
+                  <p>
+                    To become a trusted bridge between grassroots potential and elite
+                    football opportunities.
+                  </p>
+                </article>
+              </div>
+              <div className="who-actions">
+                <Link className="ghost" to="/about">
+                  Learn More
+                </Link>
+              </div>
+            </section>
+            
+            <section id="live-matches" className="section live-section">
+              <div className="live-content">
+                <h2>Watch Live Matches</h2>
+                <p className="live-text">
+                  Stream selected matches and follow player performance in real time.
+                  For the smoothest viewing quality, live notifications, and faster
+                  access on match day, we recommend downloading the TSI mobile app.
+                </p>
+                <div className="live-actions">
+                  <Link className="cta live-cta" to="/live-matches">
+                    Go To Live Matches
+                  </Link>
+                  <Link className="ghost app-download" to="/app-download">
+                    Download The App
+                  </Link>
+                </div>
+              </div>
+              <div className="live-media" aria-hidden="true">
+                <img src="/5.png" alt="" loading="lazy" decoding="async" width="640" height="280" />
+              </div>
+            </section>
+            
+            <section id="pathway" className="section section-alt">
+              <h2>Player Pathway</h2>
+              <ol className="pathway-list">
+                <li>
+                  <span>1</span>
+                  <div>
+                    <h3>Assessment</h3>
+                    <p>Initial evaluation to understand current level and growth areas.</p>
+                  </div>
+                </li>
+                <li>
+                  <span>2</span>
+                  <div>
+                    <h3>Development Block</h3>
+                    <p>Targeted coaching cycles for technique, movement, and game IQ.</p>
+                  </div>
+                </li>
+                <li>
+                  <span>3</span>
+                  <div>
+                    <h3>Match Exposure</h3>
+                    <p>Competitive games and showcase opportunities with performance review.</p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section id="submit-video" className="section submit-video-section">
+              <h2>Submit Video</h2>
+              <p className="submit-video-text">
+                Share your highlight clip for scouting review. All submitted videos are
+                scanned for viruses and compressed before being stored in the database.
+              </p>
+              <form className="video-form" onSubmit={handleVideoSubmit}>
+                <div className="form-group">
+                  <label htmlFor="playerName">Player Name</label>
+                  <input
+                    id="playerName"
+                    type="text"
+                    name="playerName"
+                    value={videoData.playerName}
+                    onChange={handleVideoChange}
+                    placeholder="Enter player name"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={videoData.email}
+                    onChange={handleVideoChange}
+                    placeholder="Enter contact email"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="clip">Upload Video</label>
+                  <input
+                    id="clip"
+                    type="file"
+                    name="clip"
+                    onChange={handleVideoChange}
+                    accept="video/*"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="note">Player Note</label>
+                  <textarea
+                    id="note"
+                    name="note"
+                    value={videoData.note}
+                    onChange={handleVideoChange}
+                    placeholder="Add position, strengths, and match context"
+                    rows={4}
+                  />
+                </div>
+                {videoStatus.message && (
+                  <p className={`upload-message ${videoStatus.type === 'error' ? 'upload-error' : 'upload-success'}`}>
+                    {videoStatus.message}
+                  </p>
+                )}
+                <button type="submit" className="cta" disabled={isVideoSubmitting}>
+                  {isVideoSubmitting ? 'Submitting...' : 'Submit Video'}
+                </button>
+              </form>
+            </section>
+
+            <section id="faq" className="section">
+              <h2>Common Questions</h2>
+              <div className="faq-list">
+                {faqs.map((faq) => (
+                  <details key={faq.question}>
+                    <summary>{faq.question}</summary>
+                    <p>{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </main>
+        } />
+        
+        <Route path="/about" element={<AboutPage aboutPillars={aboutPillars} founders={founders} />} />
+        
+        <Route path="/become-a-partner" element={
+          <BecomePartnerPage
+            formData={formData}
+            submitted={submitted}
+            onFormChange={handleFormChange}
+            onFormSubmit={handleFormSubmit}
           />
-          <span>TSI Football Development</span>
-        </div>
-        <button
-          className={`menu-toggle ${menuOpen ? 'active' : ''}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-          aria-expanded={menuOpen}
-          aria-controls="primary-nav"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <nav id="primary-nav" className={`nav ${menuOpen ? 'nav-open' : ''}`}>
-          <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
-          <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="/live-matches" onClick={() => setMenuOpen(false)}>Live Matches</a>
-          {/* <a href="/library" onClick={() => setMenuOpen(false)}>Content Library</a> */}
-          <a href="/become-a-partner" onClick={() => setMenuOpen(false)}>Become a Partner</a>
-        </nav>
-      </header>
+        } />
+        
+        <Route path="/live-matches" element={<MinimalLibrary />} />
 
-      <main>
-        <section className="hero">
-          <div className="hero-media">
-            {showHeroVideo ? (
-              <video
-                className="hero-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="none"
-                poster="/img.png"
-              >
-                <source src="/video.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img
-                className="hero-video"
-                src="/img.png"
-                alt="Football development preview"
-                loading="eager"
-                decoding="async"
-                fetchPriority="high"
-                width="380"
-                height="475"
-              />
-            )}
-          </div>
-          <div className="hero-content">
-            <p className="kicker">Football Talent And Development</p>
-            <h1>Discovering Talents, </h1>
-            <h1>Changing Lives</h1>
-            <p className="hero-text">
-              We help young footballers move from raw potential to match-ready
-              performance through structured coaching and clear progression steps.
-            </p>
-            <div className="hero-actions">
-              <a className="cta" href="/become-a-partner">
-                Register For Trials
-              </a>
-              <a className="ghost" href="#tracks">
-                View Development Tracks
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section id="tracks" className="section">
-          <h2></h2>
-          <div className="tracks-carousel" ref={tracksCarouselRef}>
-            {loopedTracks.map((track, index) => (
-              <article className="card track-card" key={`${track.title}-${index}`}>
-                <img
-                  className="card-image"
-                  src={track.image}
-                  alt={track.imageAlt}
-                  loading="lazy"
-                  decoding="async"
-                  width="640"
-                  height="360"
-                />
-                <h3>{track.title}</h3>
-                <p>{track.description}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="about" className="section who-section">
-          <h2>Who We Are</h2>
-          <p className="who-text">
-            Talent Search Initiative is a football talent and development platform
-            focused on discovering promising players, building strong fundamentals,
-            and creating real opportunities for growth on and off the pitch.
-          </p>
-          <div className="who-grid">
-            <article className="who-card">
-              <h3>Our Mission</h3>
-              <p>
-                To identify hidden football talent and provide structured coaching,
-                mentorship, and exposure pathways.
-              </p>
-            </article>
-            <article className="who-card">
-              <h3>Our Vision</h3>
-              <p>
-                To become a trusted bridge between grassroots potential and elite
-                football opportunities.
-              </p>
-            </article>
-          </div>
-          <div className="who-actions">
-            <a className="ghost" href="/about">
-              Learn More
-            </a>
-          </div>
-        </section>
-        <section id="live-matches" className="section live-section">
-          <div className="live-content">
-            <h2>Watch Live Matches</h2>
-            <p className="live-text">
-              Stream selected matches and follow player performance in real time.
-              For the smoothest viewing quality, live notifications, and faster
-              access on match day, we recommend downloading the TSI mobile app.
-            </p>
-            <div className="live-actions">
-              <a className="cta live-cta" href="/live-matches">
-                Go To Live Matches
-              </a>
-              <a className="ghost app-download" href="/app-download">
-                Download The App
-              </a>
-            </div>
-          </div>
-          <div className="live-media" aria-hidden="true">
-            <img src="/5.png" alt="" loading="lazy" decoding="async" width="640" height="280" />
-          </div>
-        </section>
-        <section id="pathway" className="section section-alt">
-          <h2>Player Pathway</h2>
-          <ol className="pathway-list">
-            <li>
-              <span>1</span>
-              <div>
-                <h3>Assessment</h3>
-                <p>Initial evaluation to understand current level and growth areas.</p>
-              </div>
-            </li>
-            <li>
-              <span>2</span>
-              <div>
-                <h3>Development Block</h3>
-                <p>Targeted coaching cycles for technique, movement, and game IQ.</p>
-              </div>
-            </li>
-            <li>
-              <span>3</span>
-              <div>
-                <h3>Match Exposure</h3>
-                <p>Competitive games and showcase opportunities with performance review.</p>
-              </div>
-            </li>
-          </ol>
-        </section>
-
-
-
-        <section id="submit-video" className="section submit-video-section">
-          <h2>Submit Video</h2>
-          <p className="submit-video-text">
-            Share your highlight clip for scouting review. All submitted videos are
-            scanned for viruses and compressed before being stored in the database.
-          </p>
-          <form className="video-form" onSubmit={handleVideoSubmit}>
-            <div className="form-group">
-              <label htmlFor="playerName">Player Name</label>
-              <input
-                id="playerName"
-                type="text"
-                name="playerName"
-                value={videoData.playerName}
-                onChange={handleVideoChange}
-                placeholder="Enter player name"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={videoData.email}
-                onChange={handleVideoChange}
-                placeholder="Enter contact email"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="clip">Upload Video</label>
-              <input
-                id="clip"
-                type="file"
-                name="clip"
-                onChange={handleVideoChange}
-                accept="video/*"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="note">Player Note</label>
-              <textarea
-                id="note"
-                name="note"
-                value={videoData.note}
-                onChange={handleVideoChange}
-                placeholder="Add position, strengths, and match context"
-                rows={4}
-              />
-            </div>
-            {videoStatus.message && (
-              <p className={`upload-message ${videoStatus.type === 'error' ? 'upload-error' : 'upload-success'}`}>
-                {videoStatus.message}
-              </p>
-            )}
-            <button type="submit" className="cta" disabled={isVideoSubmitting}>
-              {isVideoSubmitting ? 'Submitting...' : 'Submit Video'}
-            </button>
-          </form>
-        </section>
-
-        <section id="faq" className="section">
-          <h2>Common Questions</h2>
-          <div className="faq-list">
-            {faqs.map((faq) => (
-              <details key={faq.question}>
-                <summary>{faq.question}</summary>
-                <p>{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-      </main>
-
-      <footer className="footer">
-        <p>Built for football talent discovery and responsible player growth.</p>
-        <div className="footer-socials" aria-label="Social links">
-          <span>Follow us:</span>
-          <div className="footer-social-links">
-            <a href="https://instagram.com/talentsearchinitiative" target="_blank" rel="noreferrer">Instagram</a>
-            <a href="https://facebook.com/talentsearchinitiative" target="_blank" rel="noreferrer">Facebook</a>
-            <a href="https://x.com/talentsearchng" target="_blank" rel="noreferrer">X</a>
-            <a href="https://linkedin.com/company/talent-search-initiative" target="_blank" rel="noreferrer">LinkedIn</a>
-          </div>
-        </div>
-        <small>2026 Talent Search Initiative</small>
-      </footer>
-    </div>
+        
+        <Route path="/watch-match" element={<MinimalWatchPage />} />
+        <Route path="/watch-match-pro" element={<EnhancedWatchMatchPage />} />
+        <Route path="/join" element={<QRJoinPage />} />
+        <Route path="/qr-codes" element={<QRCodePage />} />
+      </Route>
+    </Routes>
   )
 }
 
 export default App
+

@@ -27,6 +27,121 @@
   z-index: 9999;
 }
 
+/* Header */
+.minimal-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.minimal-header > * {
+  pointer-events: auto;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.watch-menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 1001;
+}
+
+.watch-menu-toggle span {
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.watch-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.watch-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.watch-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.watch-nav {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background: rgba(10, 10, 15, 0.98);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  padding: 80px 20px 20px;
+  gap: 1.5rem;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+  border-right: 1px solid rgba(252, 144, 5, 0.2);
+}
+
+.watch-nav.nav-open {
+  left: 0;
+}
+
+.watch-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.watch-nav a:hover {
+  background: rgba(252, 144, 5, 0.1);
+  color: #FC9005;
+}
+
 /* Player */
 .minimal-player {
   position: relative;

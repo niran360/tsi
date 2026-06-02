@@ -1,4 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
+import { useSearchParams, useNavigate, Link } from 'react-router-dom'
+import VideoPlayer from './components/VideoPlayer'
+import { useMatch } from './hooks/useMatches'
 import './EnhancedWatchMatchPage.css'
 
 // Mock subscription tiers
@@ -8,132 +11,29 @@ const subscriptionTiers = {
   premium: { name: 'Premium', price: 4999, features: ['4K', 'Priority support', '4 streams', 'Offline', 'Early access'] },
 }
 
-// Mock OTT content library
-const contentLibrary = [
-  {
-    id: 1,
-    title: 'Ikoyi FC vs Lekki United',
-    category: 'Premier League',
-    thumbnail: '/thumb-1.jpg',
-    rating: 4.8,
-    duration: '90m',
-    date: 'Today',
-    status: 'live',
-  },
-  {
-    id: 2,
-    title: 'Mushin Elite vs Yaba United',
-    category: 'Premier League',
-    thumbnail: '/thumb-2.jpg',
-    rating: 4.5,
-    duration: '90m',
-    date: 'Yesterday',
-    status: 'replay',
-  },
-  {
-    id: 3,
-    title: 'VI Stars vs Surulere Warriors',
-    category: 'Cup',
-    thumbnail: '/thumb-3.jpg',
-    rating: 4.2,
-    duration: '90m',
-    date: 'Tomorrow',
-    status: 'upcoming',
-  },
-]
-
-// Mock OTT streams with enhanced data
-const ottStreams = {
-  1: {
-    name: 'Ikoyi FC vs Lekki United',
-    homeClub: 'Ikoyi FC',
-    awayClub: 'Lekki United',
-    homeGoals: 2,
-    awayGoals: 1,
-    minute: 45,
-    status: 'live',
-    category: 'Premier League',
-    streamUrl: 'https://test-streams.mux.dev/x36xhzz/x3iu7z4.m3u8',
-    qualities: ['Auto', '1080p', '720p', '480p', '360p'],
-    audioTracks: [
-      { id: 'en', name: 'English Commentary', active: true },
-      { id: 'yo', name: 'Yoruba Commentary', active: false },
-    ],
-    subtitles: [
-      { id: 'en', name: 'English', active: true },
-      { id: 'es', name: 'Spanish', active: false },
-    ],
-    cameras: [
-      { id: 'main', name: 'Main Camera', active: true },
-      { id: 'tactical', name: 'Tactical View', active: false },
-      { id: 'crowd', name: 'Crowd View', active: false },
-    ],
-    stats: {
-      possession: { home: 55, away: 45 },
-      shots: { home: 8, away: 5 },
-      fouls: { home: 3, away: 5 },
-      corners: { home: 4, away: 2 },
-    },
-    events: [
-      { minute: 45, team: 'Ikoyi FC', type: 'goal', player: 'Ahmed Hassan', description: 'Header from corner' },
-      { minute: 38, team: 'Lekki United', type: 'goal', player: 'Chisom Okoro', description: 'Penalty kick' },
-      { minute: 23, team: 'Ikoyi FC', type: 'goal', player: 'Tunde Oladele', description: 'Volley strike' },
-    ],
-  },
-}
-
 function EnhancedWatchMatchPage() {
-  const matchId = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '').get('match')
-  const stream = ottStreams[matchId] || ottStreams[1]
+  const [searchParams] = useSearchParams()
+  const matchId = searchParams.get('match') || '1'
+  const navigate = useNavigate()
 
-  const videoRef = useRef(null)
+  const { match: stream, loading } = useMatch(matchId)
+
   const [userProfile, setUserProfile] = useState({
     isLoggedIn: false,
     subscription: 'free',
     watchlist: [],
     favorites: [],
   })
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [volume, setVolume] = useState(0.8)
-  const [isMuted, setIsMuted] = useState(false)
-  const [quality, setQuality] = useState('Auto')
-  const [activeCamera, setActiveCamera] = useState('main')
-  const [activeAudio, setActiveAudio] = useState('en')
-  const [activeSubtitle, setActiveSubtitle] = useState('en')
-  const [showStats, setShowStats] = useState(true)
-  const [showCommentary, setShowCommentary] = useState(true)
-  const [showSettings, setShowSettings] = useState(false)
+
+  const [menuOpen, setMenuOpen] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
+  const [showStats, setShowStats] = useState(true)
   const [showPremiumModal, setShowPremiumModal] = useState(false)
   const [isInWatchlist, setIsInWatchlist] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false)
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    if (isPlaying) {
-      video.play().catch(err => console.log('Play failed:', err))
-    } else {
-      video.pause()
-    }
-  }, [isPlaying])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (video) {
-      video.volume = isMuted ? 0 : volume
-    }
-  }, [volume, isMuted])
-
-  const toggleFullscreen = () => {
-    const elem = document.querySelector('.enhanced-video-container')
-    if (!fullscreen) {
-      elem?.requestFullscreen?.()
-    } else {
-      document.exitFullscreen?.()
-    }
-    setFullscreen(!fullscreen)
-  }
+  const [showSettings, setShowSettings] = useState(false)
+  const [activeAudio, setActiveAudio] = useState('en')
+  const [activeSubtitle, setActiveSubtitle] = useState('en')
 
   const handleLogin = () => {
     setUserProfile(prev => ({
@@ -160,7 +60,34 @@ function EnhancedWatchMatchPage() {
   }
 
   const goBack = () => {
-    window.history.back()
+    navigate(-1)
+  }
+
+  if (loading) {
+    return (
+      <div className="enhanced-watch-page" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0a0a0c', color: '#fff' }}>
+        <div className="spinner" style={{ border: '4px solid rgba(255,255,255,0.1)', borderTop: '4px solid #ff4b4b', borderRadius: '50%', width: '40px', height: '40px', animation: 'spin 1s linear infinite' }}></div>
+        <p style={{ marginTop: '1rem', color: '#8e8e93' }}>Loading premium playback options...</p>
+        <style>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+  if (!stream) {
+    return (
+      <div className="enhanced-watch-page" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0a0a0c', color: '#fff', padding: '20px', textAlign: 'center' }}>
+        <h2>Premium stream not found</h2>
+        <p style={{ color: '#8e8e93', marginBottom: '1.5rem' }}>This premium match may not have a stream provisioned yet, or it is unavailable.</p>
+        <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', background: '#ff4b4b', border: 'none', borderRadius: '6px', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}>
+          Go Back
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -168,6 +95,22 @@ function EnhancedWatchMatchPage() {
       {/* Header */}
       <header className="enhanced-header">
         <div className="header-left">
+          <button
+            className={`watch-menu-toggle ${menuOpen ? 'active' : ''}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          
+          <nav className={`watch-nav ${menuOpen ? 'nav-open' : ''}`}>
+            <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/live-matches" onClick={() => setMenuOpen(false)}>Live Matches</Link>
+            <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+          </nav>
+
           <button className="back-btn" onClick={goBack}>
             ← Back
           </button>
@@ -197,121 +140,40 @@ function EnhancedWatchMatchPage() {
         {/* Main Video Area */}
         <div className="main-watch-area">
           <div className="enhanced-video-container">
-            <video
-              ref={videoRef}
-              className="enhanced-video-player"
-              autoPlay
-              muted={isMuted}
-              crossOrigin="anonymous"
-            >
-              <source src={stream.streamUrl} type="application/x-mpegURL" />
-              Your browser does not support the video tag.
-            </video>
+            <VideoPlayer 
+              streamUrl={stream.streamUrl}
+              cameras={stream.cameras}
+              layout="enhanced"
+              matchData={stream}
+              onFullscreenChange={setFullscreen}
+            />
 
-            {/* Live Score Overlay */}
-            <div className="enhanced-score-overlay">
-              <div className="score-card">
-                <div className="team-info home">
-                  <div className="team-name">{stream.homeClub}</div>
-                  <div className="score">{stream.homeGoals}</div>
-                </div>
-                <div className="match-info">
-                  <div className="minute">{stream.minute}'</div>
-                  <div className="vs">vs</div>
-                  <div className="category">{stream.category}</div>
-                </div>
-                <div className="team-info away">
-                  <div className="score">{stream.awayGoals}</div>
-                  <div className="team-name">{stream.awayClub}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Video Controls */}
-            <div className="enhanced-controls">
-              <div className="controls-top">
-                <div className="camera-options">
-                  {stream.cameras.map(cam => (
-                    <button
-                      key={cam.id}
-                      className={`cam-btn ${activeCamera === cam.id ? 'active' : ''}`}
-                      onClick={() => setActiveCamera(cam.id)}
-                      title={cam.name}
-                    >
-                      📹 {cam.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="controls-bottom">
-                <div className="left-controls">
-                  <button
-                    className="control-icon"
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    title={isPlaying ? 'Pause' : 'Play'}
-                  >
-                    {isPlaying ? '⏸' : '▶'}
-                  </button>
-
-                  <div className="volume-control">
-                    <button
-                      className="control-icon"
-                      onClick={() => setIsMuted(!isMuted)}
-                      title={isMuted ? 'Unmute' : 'Mute'}
-                    >
-                      {isMuted ? '🔇' : '🔊'}
-                    </button>
-                    <input
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={volume}
-                      onChange={e => setVolume(parseFloat(e.target.value))}
-                      className="volume-slider"
-                    />
-                  </div>
-
-                  <select value={quality} onChange={e => setQuality(e.target.value)} className="quality-select">
-                    {stream.qualities.map(q => (
-                      <option key={q} value={q}>
-                        {q}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="right-controls">
-                  <button
-                    className={`control-icon ${isFavorite ? 'active' : ''}`}
-                    onClick={toggleFavorite}
-                    title="Add to Favorites"
-                  >
-                    {isFavorite ? '❤️' : '🤍'}
-                  </button>
-                  <button
-                    className={`control-icon ${isInWatchlist ? 'active' : ''}`}
-                    onClick={toggleWatchlist}
-                    title="Add to Watchlist"
-                  >
-                    📌
-                  </button>
-                  <button
-                    className="control-icon"
-                    onClick={() => setShowSettings(!showSettings)}
-                    title="Settings"
-                  >
-                    ⚙️
-                  </button>
-                  <button className="control-icon" title="Share" onClick={() => alert('Share: Coming soon!')}>
-                    📤
-                  </button>
-                  <button className="control-icon" onClick={toggleFullscreen} title="Fullscreen">
-                    ⛶
-                  </button>
-                </div>
-              </div>
+            {/* Custom Controls Overlay for Enhanced Page (Favorites, Watchlist, Settings) */}
+            <div className={`enhanced-custom-controls ${fullscreen ? 'fullscreen' : ''}`}>
+               <button
+                  className={`control-icon ${isFavorite ? 'active' : ''}`}
+                  onClick={toggleFavorite}
+                  title="Add to Favorites"
+                >
+                  {isFavorite ? '❤️' : '🤍'}
+                </button>
+                <button
+                  className={`control-icon ${isInWatchlist ? 'active' : ''}`}
+                  onClick={toggleWatchlist}
+                  title="Add to Watchlist"
+                >
+                  📌
+                </button>
+                <button
+                  className="control-icon"
+                  onClick={() => setShowSettings(!showSettings)}
+                  title="Settings"
+                >
+                  ⚙️
+                </button>
+                <button className="control-icon" title="Share" onClick={() => alert('Share: Coming soon!')}>
+                  📤
+                </button>
             </div>
           </div>
 
@@ -323,7 +185,7 @@ function EnhancedWatchMatchPage() {
               <div className="settings-group">
                 <label>Audio Track</label>
                 <div className="options">
-                  {stream.audioTracks.map(track => (
+                  {stream.audioTracks?.map(track => (
                     <button
                       key={track.id}
                       className={`option-btn ${activeAudio === track.id ? 'active' : ''}`}
@@ -344,7 +206,7 @@ function EnhancedWatchMatchPage() {
                   >
                     Off
                   </button>
-                  {stream.subtitles.map(sub => (
+                  {stream.subtitles?.map(sub => (
                     <button
                       key={sub.id}
                       className={`option-btn ${activeSubtitle === sub.id ? 'active' : ''}`}
@@ -363,7 +225,7 @@ function EnhancedWatchMatchPage() {
             <button className={`tab ${showStats ? 'active' : ''}`} onClick={() => setShowStats(true)}>
               Statistics
             </button>
-            <button className={`tab ${showCommentary ? 'active' : ''}`} onClick={() => setShowCommentary(true)}>
+            <button className={`tab ${!showStats ? 'active' : ''}`} onClick={() => setShowStats(false)}>
               Commentary
             </button>
           </div>
@@ -466,7 +328,7 @@ function EnhancedWatchMatchPage() {
                       <li key={idx}>✓ {feature}</li>
                     ))}
                   </ul>
-                  <button className={`plan-btn ${key === 'free' ? 'secondary' : ''}`}>
+                  <button className={`plan-btn ${key === 'free' ? 'secondary' : ''}`} onClick={() => setUserProfile(p => ({...p, subscription: key}))}>
                     {key === userProfile.subscription ? 'Current Plan' : 'Subscribe'}
                   </button>
                 </div>
@@ -480,3 +342,4 @@ function EnhancedWatchMatchPage() {
 }
 
 export default EnhancedWatchMatchPage
+

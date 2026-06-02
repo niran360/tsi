@@ -39,6 +39,80 @@
   flex: 1;
 }
 
+.watch-menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 1001;
+}
+
+.watch-menu-toggle span {
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+.watch-menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.watch-menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.watch-menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.watch-nav {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background: rgba(15, 15, 20, 0.98);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  padding: 80px 20px 20px;
+  gap: 1.5rem;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+  border-right: 1px solid rgba(252, 144, 5, 0.2);
+}
+
+.watch-nav.nav-open {
+  left: 0;
+}
+
+.watch-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.watch-nav a:hover {
+  background: rgba(252, 144, 5, 0.1);
+  color: #FC9005;
+}
+
+
 .back-btn {
   background: none;
   border: none;
@@ -297,6 +371,31 @@
   border-color: #FC9005;
   color: #000000;
 }
+
+/* Custom Controls Overlay for Enhanced Page */
+.enhanced-custom-controls {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  gap: 0.8rem;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.enhanced-custom-controls.fullscreen {
+  bottom: 5rem;
+}
+
+.enhanced-video-container:hover .enhanced-custom-controls {
+  opacity: 1;
+}
+
+.enhanced-custom-controls:hover {
+  opacity: 1;
+}
+
 
 .controls-bottom {
   display: flex;
