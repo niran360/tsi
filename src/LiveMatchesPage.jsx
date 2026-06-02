@@ -164,8 +164,8 @@ function LiveMatchesPage() {
               </div>
             </div>
             <div className="featured-actions">
-              <button className="cta">Watch Live</button>
-              <button className="ghost">Match Details</button>
+              <a href="/watch-match-pro?match=1" className="cta">Watch Live (Enhanced)</a>
+              <a href="/watch-match?match=1" className="ghost">Standard Player</a>
             </div>
           </section>
         )}

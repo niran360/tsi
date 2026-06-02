@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import AboutPage from './AboutPage'
 import BecomePartnerPage from './BecomePartnerPage'
-import LiveMatchesPage from './LiveMatchesPage'
+import MinimalWatchPage from './MinimalWatchPage'
+import EnhancedWatchMatchPage from './EnhancedWatchMatchPage'
+import MinimalLibrary from './MinimalLibrary'
 
 const tracks = [
   {
@@ -95,7 +97,9 @@ function App() {
   const path = typeof window !== 'undefined' ? window.location.pathname.replace(/\/+$/, '') || '/' : '/'
   const isAboutPage = path === '/about'
   const isPartnerPage = path === '/become-a-partner'
-  const isLiveMatchesPage = path === '/live-matches'
+  const isLiveMatchesPage = path === '/live-matches' || path === '/library'
+  const isWatchMatchPage = path === '/watch-match'
+  const isEnhancedWatchPage = path === '/watch-match-pro'
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [formData, setFormData] = useState({ name: '', ageGroup: '', position: '', location: '' })
@@ -264,7 +268,15 @@ function App() {
   }
 
   if (isLiveMatchesPage) {
-    return <LiveMatchesPage />
+    return <MinimalLibrary />
+  }
+
+  if (isWatchMatchPage) {
+    return <MinimalWatchPage />
+  }
+
+  if (isEnhancedWatchPage) {
+    return <EnhancedWatchMatchPage />
   }
 
   return (
@@ -298,6 +310,7 @@ function App() {
           <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
           <a href="/about" onClick={() => setMenuOpen(false)}>About</a>
           <a href="/live-matches" onClick={() => setMenuOpen(false)}>Live Matches</a>
+          {/* <a href="/library" onClick={() => setMenuOpen(false)}>Content Library</a> */}
           <a href="/become-a-partner" onClick={() => setMenuOpen(false)}>Become a Partner</a>
         </nav>
       </header>
@@ -400,7 +413,27 @@ function App() {
             </a>
           </div>
         </section>
-
+        <section id="live-matches" className="section live-section">
+          <div className="live-content">
+            <h2>Watch Live Matches</h2>
+            <p className="live-text">
+              Stream selected matches and follow player performance in real time.
+              For the smoothest viewing quality, live notifications, and faster
+              access on match day, we recommend downloading the TSI mobile app.
+            </p>
+            <div className="live-actions">
+              <a className="cta live-cta" href="/live-matches">
+                Go To Live Matches
+              </a>
+              <a className="ghost app-download" href="/app-download">
+                Download The App
+              </a>
+            </div>
+          </div>
+          <div className="live-media" aria-hidden="true">
+            <img src="/5.png" alt="" loading="lazy" decoding="async" width="640" height="280" />
+          </div>
+        </section>
         <section id="pathway" className="section section-alt">
           <h2>Player Pathway</h2>
           <ol className="pathway-list">
@@ -428,27 +461,7 @@ function App() {
           </ol>
         </section>
 
-        <section id="live-matches" className="section live-section">
-          <div className="live-content">
-            <h2>Watch Live Matches</h2>
-            <p className="live-text">
-              Stream selected matches and follow player performance in real time.
-              For the smoothest viewing quality, live notifications, and faster
-              access on match day, we recommend downloading the TSI mobile app.
-            </p>
-            <div className="live-actions">
-              <a className="cta live-cta" href="/live-matches">
-                Go To Live Matches
-              </a>
-              <a className="ghost app-download" href="/app-download">
-                Download The App
-              </a>
-            </div>
-          </div>
-          <div className="live-media" aria-hidden="true">
-            <img src="/5.png" alt="" loading="lazy" decoding="async" width="640" height="280" />
-          </div>
-        </section>
+
 
         <section id="submit-video" className="section submit-video-section">
           <h2>Submit Video</h2>
