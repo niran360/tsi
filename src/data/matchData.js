@@ -9,7 +9,7 @@ export const matchData = {
     minute: 45,
     status: 'live',
     category: 'Premier League',
-    streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+    streamUrl: '/7up-advertisement.mp4',
     qualities: ['Auto', '1080p', '720p', '480p', '360p'],
     audioTracks: [
       { id: 'en', name: 'English Commentary', active: true },
@@ -20,9 +20,9 @@ export const matchData = {
       { id: 'es', name: 'Spanish', active: false },
     ],
     cameras: [
-      { id: 'main', name: 'Main Camera', active: true, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
-      { id: 'tactical', name: 'Tactical View', active: false, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
-      { id: 'crowd', name: 'Crowd View', active: false, streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8' },
+      { id: 'main', name: 'Main Camera', active: true, streamUrl: '/7up-advertisement.mp4' },
+      { id: 'tactical', name: 'Tactical View', active: false, streamUrl: '/7up-advertisement.mp4' },
+      { id: 'crowd', name: 'Crowd View', active: false, streamUrl: '/7up-advertisement.mp4' },
     ],
     stats: {
       possession: { home: 55, away: 45 },

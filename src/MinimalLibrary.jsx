@@ -21,7 +21,8 @@ function MinimalLibrary() {
   const [ppvMatch, setPPVMatch] = useState(null) // match object awaiting PPV activation
 
   const filtered = matches.filter(item => {
-    const matchSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const titleOrName = item.title || item.name || ''
+    const matchSearch = titleOrName.toLowerCase().includes(searchQuery.toLowerCase())
     if (!matchSearch) return false
     if (selectedCategory === 'All') return true
     if (selectedCategory === 'Live') return item.status === 'live'
@@ -136,7 +137,7 @@ function MinimalLibrary() {
                         {isPPV && !unlocked && <span className="ppv-tag">PPV</span>}
                         {isPPV && unlocked && <span className="ppv-tag unlocked">✓ Unlocked</span>}
                       </div>
-                      <h3>{item.title}</h3>
+                      <h3>{item.title || item.name}</h3>
                       <div className="card-footer">
                         <span className="rating">★ {item.rating || 'N/A'}</span>
                         <span className="date">{item.date}</span>

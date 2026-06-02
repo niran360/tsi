@@ -12,6 +12,17 @@ export function useHlsPlayer(videoRef, streamUrl, autoPlay = true) {
     if (!video || !streamUrl) return
 
     let hls = null
+
+    // Support standard MP4 videos natively
+    if (streamUrl.toLowerCase().includes('.mp4')) {
+      video.src = streamUrl
+      video.addEventListener('loadedmetadata', () => {
+        if (autoPlay) {
+          video.play().catch(e => console.log('Autoplay prevented', e))
+        }
+      })
+      return
+    }
     
     // Check if the browser supports HLS.js
     if (Hls.isSupported()) {
